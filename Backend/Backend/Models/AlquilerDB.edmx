@@ -1,0 +1,603 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="AlquilerDBModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="Clientes">
+          <Key>
+            <PropertyRef Name="id_cliente" />
+          </Key>
+          <Property Name="id_cliente" Type="int" Nullable="false" />
+          <Property Name="nombre" Type="varchar" MaxLength="100" />
+          <Property Name="nacionalidad" Type="varchar" MaxLength="50" />
+          <Property Name="identificacion" Type="varchar" MaxLength="50" />
+          <Property Name="tipo_cliente" Type="varchar" MaxLength="20" />
+          <Property Name="telefono" Type="varchar" MaxLength="20" />
+          <Property Name="email" Type="varchar" MaxLength="100" />
+        </EntityType>
+        <EntityType Name="Devoluciones">
+          <Key>
+            <PropertyRef Name="id_devolucion" />
+          </Key>
+          <Property Name="id_devolucion" Type="int" Nullable="false" />
+          <Property Name="id_renta" Type="int" />
+          <Property Name="fecha_devolucion" Type="date" />
+          <Property Name="kilometraje_final" Type="int" />
+          <Property Name="observaciones" Type="text" />
+          <Property Name="costo_final" Type="decimal" Precision="10" Scale="2" />
+        </EntityType>
+        <EntityType Name="Rentas">
+          <Key>
+            <PropertyRef Name="id_renta" />
+          </Key>
+          <Property Name="id_renta" Type="int" Nullable="false" />
+          <Property Name="id_reserva" Type="int" />
+          <Property Name="fecha_inicio" Type="date" />
+          <Property Name="fecha_fin_estimada" Type="date" />
+          <Property Name="costo_total_est" Type="decimal" Precision="10" Scale="2" />
+        </EntityType>
+        <EntityType Name="Reservas">
+          <Key>
+            <PropertyRef Name="id_reserva" />
+          </Key>
+          <Property Name="id_reserva" Type="int" Nullable="false" />
+          <Property Name="id_cliente" Type="int" />
+          <Property Name="id_vehiculo" Type="int" />
+          <Property Name="fecha_reserva" Type="date" />
+          <Property Name="fecha_inicio" Type="date" />
+          <Property Name="fecha_fin" Type="date" />
+          <Property Name="estado" Type="varchar" MaxLength="20" />
+        </EntityType>
+        <EntityType Name="Sedes">
+          <Key>
+            <PropertyRef Name="id_sede" />
+          </Key>
+          <Property Name="id_sede" Type="int" Nullable="false" />
+          <Property Name="nombre" Type="varchar" MaxLength="100" />
+          <Property Name="direccion" Type="varchar" MaxLength="200" />
+          <Property Name="ciudad" Type="varchar" MaxLength="100" />
+        </EntityType>
+        <EntityType Name="TiposVehiculos">
+          <Key>
+            <PropertyRef Name="id_tipo" />
+          </Key>
+          <Property Name="id_tipo" Type="int" Nullable="false" />
+          <Property Name="nombre" Type="varchar" MaxLength="50" />
+          <Property Name="descripcion" Type="text" />
+        </EntityType>
+        <EntityType Name="Vehiculos">
+          <Key>
+            <PropertyRef Name="id_vehiculo" />
+          </Key>
+          <Property Name="id_vehiculo" Type="int" Nullable="false" />
+          <Property Name="placa" Type="varchar" MaxLength="20" />
+          <Property Name="marca" Type="varchar" MaxLength="50" />
+          <Property Name="modelo" Type="varchar" MaxLength="50" />
+          <Property Name="año" Type="int" />
+          <Property Name="id_tipo" Type="int" />
+          <Property Name="id_sede" Type="int" />
+          <Property Name="estado" Type="varchar" MaxLength="20" />
+          <Property Name="fecha_compra" Type="date" />
+          <Property Name="precio_compra" Type="decimal" Precision="10" Scale="2" />
+        </EntityType>
+        <EntityType Name="Ventas">
+          <Key>
+            <PropertyRef Name="id_venta" />
+          </Key>
+          <Property Name="id_venta" Type="int" Nullable="false" />
+          <Property Name="id_vehiculo" Type="int" />
+          <Property Name="fecha_venta" Type="date" />
+          <Property Name="precio_venta" Type="decimal" Precision="10" Scale="2" />
+          <Property Name="comprador_nombre" Type="varchar" MaxLength="100" />
+        </EntityType>
+        <Association Name="FK__Devolucio__id_re__4BAC3F29">
+          <End Role="Rentas" Type="Self.Rentas" Multiplicity="0..1" />
+          <End Role="Devoluciones" Type="Self.Devoluciones" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Rentas">
+              <PropertyRef Name="id_renta" />
+            </Principal>
+            <Dependent Role="Devoluciones">
+              <PropertyRef Name="id_renta" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Rentas__id_reser__48CFD27E">
+          <End Role="Reservas" Type="Self.Reservas" Multiplicity="0..1" />
+          <End Role="Rentas" Type="Self.Rentas" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Reservas">
+              <PropertyRef Name="id_reserva" />
+            </Principal>
+            <Dependent Role="Rentas">
+              <PropertyRef Name="id_reserva" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Reservas__id_cli__44FF419A">
+          <End Role="Clientes" Type="Self.Clientes" Multiplicity="0..1" />
+          <End Role="Reservas" Type="Self.Reservas" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Clientes">
+              <PropertyRef Name="id_cliente" />
+            </Principal>
+            <Dependent Role="Reservas">
+              <PropertyRef Name="id_cliente" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Reservas__id_veh__45F365D3">
+          <End Role="Vehiculos" Type="Self.Vehiculos" Multiplicity="0..1" />
+          <End Role="Reservas" Type="Self.Reservas" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Vehiculos">
+              <PropertyRef Name="id_vehiculo" />
+            </Principal>
+            <Dependent Role="Reservas">
+              <PropertyRef Name="id_vehiculo" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Vehiculos__id_se__3E52440B">
+          <End Role="Sedes" Type="Self.Sedes" Multiplicity="0..1" />
+          <End Role="Vehiculos" Type="Self.Vehiculos" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Sedes">
+              <PropertyRef Name="id_sede" />
+            </Principal>
+            <Dependent Role="Vehiculos">
+              <PropertyRef Name="id_sede" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Vehiculos__id_ti__3D5E1FD2">
+          <End Role="TiposVehiculos" Type="Self.TiposVehiculos" Multiplicity="0..1" />
+          <End Role="Vehiculos" Type="Self.Vehiculos" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TiposVehiculos">
+              <PropertyRef Name="id_tipo" />
+            </Principal>
+            <Dependent Role="Vehiculos">
+              <PropertyRef Name="id_tipo" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Ventas__id_vehic__4E88ABD4">
+          <End Role="Vehiculos" Type="Self.Vehiculos" Multiplicity="0..1" />
+          <End Role="Ventas" Type="Self.Ventas" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Vehiculos">
+              <PropertyRef Name="id_vehiculo" />
+            </Principal>
+            <Dependent Role="Ventas">
+              <PropertyRef Name="id_vehiculo" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Ventas__id_vehic__4F7CD00D">
+          <End Role="Vehiculos" Type="Self.Vehiculos" Multiplicity="0..1" />
+          <End Role="Ventas" Type="Self.Ventas" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Vehiculos">
+              <PropertyRef Name="id_vehiculo" />
+            </Principal>
+            <Dependent Role="Ventas">
+              <PropertyRef Name="id_vehiculo" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="AlquilerDBModelStoreContainer">
+          <EntitySet Name="Clientes" EntityType="Self.Clientes" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Devoluciones" EntityType="Self.Devoluciones" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Rentas" EntityType="Self.Rentas" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Reservas" EntityType="Self.Reservas" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Sedes" EntityType="Self.Sedes" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="TiposVehiculos" EntityType="Self.TiposVehiculos" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Vehiculos" EntityType="Self.Vehiculos" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Ventas" EntityType="Self.Ventas" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK__Devolucio__id_re__4BAC3F29" Association="Self.FK__Devolucio__id_re__4BAC3F29">
+            <End Role="Rentas" EntitySet="Rentas" />
+            <End Role="Devoluciones" EntitySet="Devoluciones" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Rentas__id_reser__48CFD27E" Association="Self.FK__Rentas__id_reser__48CFD27E">
+            <End Role="Reservas" EntitySet="Reservas" />
+            <End Role="Rentas" EntitySet="Rentas" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Reservas__id_cli__44FF419A" Association="Self.FK__Reservas__id_cli__44FF419A">
+            <End Role="Clientes" EntitySet="Clientes" />
+            <End Role="Reservas" EntitySet="Reservas" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Reservas__id_veh__45F365D3" Association="Self.FK__Reservas__id_veh__45F365D3">
+            <End Role="Vehiculos" EntitySet="Vehiculos" />
+            <End Role="Reservas" EntitySet="Reservas" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Vehiculos__id_se__3E52440B" Association="Self.FK__Vehiculos__id_se__3E52440B">
+            <End Role="Sedes" EntitySet="Sedes" />
+            <End Role="Vehiculos" EntitySet="Vehiculos" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Vehiculos__id_ti__3D5E1FD2" Association="Self.FK__Vehiculos__id_ti__3D5E1FD2">
+            <End Role="TiposVehiculos" EntitySet="TiposVehiculos" />
+            <End Role="Vehiculos" EntitySet="Vehiculos" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Ventas__id_vehic__4E88ABD4" Association="Self.FK__Ventas__id_vehic__4E88ABD4">
+            <End Role="Vehiculos" EntitySet="Vehiculos" />
+            <End Role="Ventas" EntitySet="Ventas" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Ventas__id_vehic__4F7CD00D" Association="Self.FK__Ventas__id_vehic__4F7CD00D">
+            <End Role="Vehiculos" EntitySet="Vehiculos" />
+            <End Role="Ventas" EntitySet="Ventas" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="AlquilerDBModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="Cliente">
+          <Key>
+            <PropertyRef Name="id_cliente" />
+          </Key>
+          <Property Name="id_cliente" Type="Int32" Nullable="false" />
+          <Property Name="nombre" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="nacionalidad" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="identificacion" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="tipo_cliente" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="telefono" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="email" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="Reservas" Relationship="Self.FK__Reservas__id_cli__44FF419A" FromRole="Clientes" ToRole="Reservas" />
+        </EntityType>
+        <EntityType Name="Devolucione">
+          <Key>
+            <PropertyRef Name="id_devolucion" />
+          </Key>
+          <Property Name="id_devolucion" Type="Int32" Nullable="false" />
+          <Property Name="id_renta" Type="Int32" />
+          <Property Name="fecha_devolucion" Type="DateTime" Precision="0" />
+          <Property Name="kilometraje_final" Type="Int32" />
+          <Property Name="observaciones" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="costo_final" Type="Decimal" Precision="10" Scale="2" />
+          <NavigationProperty Name="Renta" Relationship="Self.FK__Devolucio__id_re__4BAC3F29" FromRole="Devoluciones" ToRole="Rentas" />
+        </EntityType>
+        <EntityType Name="Renta">
+          <Key>
+            <PropertyRef Name="id_renta" />
+          </Key>
+          <Property Name="id_renta" Type="Int32" Nullable="false" />
+          <Property Name="id_reserva" Type="Int32" />
+          <Property Name="fecha_inicio" Type="DateTime" Precision="0" />
+          <Property Name="fecha_fin_estimada" Type="DateTime" Precision="0" />
+          <Property Name="costo_total_est" Type="Decimal" Precision="10" Scale="2" />
+          <NavigationProperty Name="Devoluciones" Relationship="Self.FK__Devolucio__id_re__4BAC3F29" FromRole="Rentas" ToRole="Devoluciones" />
+          <NavigationProperty Name="Reserva" Relationship="Self.FK__Rentas__id_reser__48CFD27E" FromRole="Rentas" ToRole="Reservas" />
+        </EntityType>
+        <EntityType Name="Reserva">
+          <Key>
+            <PropertyRef Name="id_reserva" />
+          </Key>
+          <Property Name="id_reserva" Type="Int32" Nullable="false" />
+          <Property Name="id_cliente" Type="Int32" />
+          <Property Name="id_vehiculo" Type="Int32" />
+          <Property Name="fecha_reserva" Type="DateTime" Precision="0" />
+          <Property Name="fecha_inicio" Type="DateTime" Precision="0" />
+          <Property Name="fecha_fin" Type="DateTime" Precision="0" />
+          <Property Name="estado" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="Cliente" Relationship="Self.FK__Reservas__id_cli__44FF419A" FromRole="Reservas" ToRole="Clientes" />
+          <NavigationProperty Name="Rentas" Relationship="Self.FK__Rentas__id_reser__48CFD27E" FromRole="Reservas" ToRole="Rentas" />
+          <NavigationProperty Name="Vehiculo" Relationship="Self.FK__Reservas__id_veh__45F365D3" FromRole="Reservas" ToRole="Vehiculos" />
+        </EntityType>
+        <EntityType Name="Sede">
+          <Key>
+            <PropertyRef Name="id_sede" />
+          </Key>
+          <Property Name="id_sede" Type="Int32" Nullable="false" />
+          <Property Name="nombre" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="direccion" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
+          <Property Name="ciudad" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="Vehiculos" Relationship="Self.FK__Vehiculos__id_se__3E52440B" FromRole="Sedes" ToRole="Vehiculos" />
+        </EntityType>
+        <EntityType Name="TiposVehiculo">
+          <Key>
+            <PropertyRef Name="id_tipo" />
+          </Key>
+          <Property Name="id_tipo" Type="Int32" Nullable="false" />
+          <Property Name="nombre" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="descripcion" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="Vehiculos" Relationship="Self.FK__Vehiculos__id_ti__3D5E1FD2" FromRole="TiposVehiculos" ToRole="Vehiculos" />
+        </EntityType>
+        <EntityType Name="Vehiculo">
+          <Key>
+            <PropertyRef Name="id_vehiculo" />
+          </Key>
+          <Property Name="id_vehiculo" Type="Int32" Nullable="false" />
+          <Property Name="placa" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="marca" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="modelo" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="año" Type="Int32" />
+          <Property Name="id_tipo" Type="Int32" />
+          <Property Name="id_sede" Type="Int32" />
+          <Property Name="estado" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="fecha_compra" Type="DateTime" Precision="0" />
+          <Property Name="precio_compra" Type="Decimal" Precision="10" Scale="2" />
+          <NavigationProperty Name="Reservas" Relationship="Self.FK__Reservas__id_veh__45F365D3" FromRole="Vehiculos" ToRole="Reservas" />
+          <NavigationProperty Name="Sede" Relationship="Self.FK__Vehiculos__id_se__3E52440B" FromRole="Vehiculos" ToRole="Sedes" />
+          <NavigationProperty Name="TiposVehiculo" Relationship="Self.FK__Vehiculos__id_ti__3D5E1FD2" FromRole="Vehiculos" ToRole="TiposVehiculos" />
+          <NavigationProperty Name="Ventas" Relationship="Self.FK__Ventas__id_vehic__4E88ABD4" FromRole="Vehiculos" ToRole="Ventas" />
+          <NavigationProperty Name="Ventas1" Relationship="Self.FK__Ventas__id_vehic__4F7CD00D" FromRole="Vehiculos" ToRole="Ventas" />
+        </EntityType>
+        <EntityType Name="Venta">
+          <Key>
+            <PropertyRef Name="id_venta" />
+          </Key>
+          <Property Name="id_venta" Type="Int32" Nullable="false" />
+          <Property Name="id_vehiculo" Type="Int32" />
+          <Property Name="fecha_venta" Type="DateTime" Precision="0" />
+          <Property Name="precio_venta" Type="Decimal" Precision="10" Scale="2" />
+          <Property Name="comprador_nombre" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="Vehiculo" Relationship="Self.FK__Ventas__id_vehic__4E88ABD4" FromRole="Ventas" ToRole="Vehiculos" />
+          <NavigationProperty Name="Vehiculo1" Relationship="Self.FK__Ventas__id_vehic__4F7CD00D" FromRole="Ventas" ToRole="Vehiculos" />
+        </EntityType>
+        <Association Name="FK__Reservas__id_cli__44FF419A">
+          <End Role="Clientes" Type="Self.Cliente" Multiplicity="0..1" />
+          <End Role="Reservas" Type="Self.Reserva" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Clientes">
+              <PropertyRef Name="id_cliente" />
+            </Principal>
+            <Dependent Role="Reservas">
+              <PropertyRef Name="id_cliente" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Devolucio__id_re__4BAC3F29">
+          <End Role="Rentas" Type="Self.Renta" Multiplicity="0..1" />
+          <End Role="Devoluciones" Type="Self.Devolucione" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Rentas">
+              <PropertyRef Name="id_renta" />
+            </Principal>
+            <Dependent Role="Devoluciones">
+              <PropertyRef Name="id_renta" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Rentas__id_reser__48CFD27E">
+          <End Role="Reservas" Type="Self.Reserva" Multiplicity="0..1" />
+          <End Role="Rentas" Type="Self.Renta" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Reservas">
+              <PropertyRef Name="id_reserva" />
+            </Principal>
+            <Dependent Role="Rentas">
+              <PropertyRef Name="id_reserva" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Reservas__id_veh__45F365D3">
+          <End Role="Vehiculos" Type="Self.Vehiculo" Multiplicity="0..1" />
+          <End Role="Reservas" Type="Self.Reserva" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Vehiculos">
+              <PropertyRef Name="id_vehiculo" />
+            </Principal>
+            <Dependent Role="Reservas">
+              <PropertyRef Name="id_vehiculo" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Vehiculos__id_se__3E52440B">
+          <End Role="Sedes" Type="Self.Sede" Multiplicity="0..1" />
+          <End Role="Vehiculos" Type="Self.Vehiculo" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Sedes">
+              <PropertyRef Name="id_sede" />
+            </Principal>
+            <Dependent Role="Vehiculos">
+              <PropertyRef Name="id_sede" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Vehiculos__id_ti__3D5E1FD2">
+          <End Role="TiposVehiculos" Type="Self.TiposVehiculo" Multiplicity="0..1" />
+          <End Role="Vehiculos" Type="Self.Vehiculo" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TiposVehiculos">
+              <PropertyRef Name="id_tipo" />
+            </Principal>
+            <Dependent Role="Vehiculos">
+              <PropertyRef Name="id_tipo" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Ventas__id_vehic__4E88ABD4">
+          <End Role="Vehiculos" Type="Self.Vehiculo" Multiplicity="0..1" />
+          <End Role="Ventas" Type="Self.Venta" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Vehiculos">
+              <PropertyRef Name="id_vehiculo" />
+            </Principal>
+            <Dependent Role="Ventas">
+              <PropertyRef Name="id_vehiculo" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Ventas__id_vehic__4F7CD00D">
+          <End Role="Vehiculos" Type="Self.Vehiculo" Multiplicity="0..1" />
+          <End Role="Ventas" Type="Self.Venta" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Vehiculos">
+              <PropertyRef Name="id_vehiculo" />
+            </Principal>
+            <Dependent Role="Ventas">
+              <PropertyRef Name="id_vehiculo" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="AlquilerDBEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="Clientes" EntityType="Self.Cliente" />
+          <EntitySet Name="Devoluciones" EntityType="Self.Devolucione" />
+          <EntitySet Name="Rentas" EntityType="Self.Renta" />
+          <EntitySet Name="Reservas" EntityType="Self.Reserva" />
+          <EntitySet Name="Sedes" EntityType="Self.Sede" />
+          <EntitySet Name="TiposVehiculos" EntityType="Self.TiposVehiculo" />
+          <EntitySet Name="Vehiculos" EntityType="Self.Vehiculo" />
+          <EntitySet Name="Ventas" EntityType="Self.Venta" />
+          <AssociationSet Name="FK__Reservas__id_cli__44FF419A" Association="Self.FK__Reservas__id_cli__44FF419A">
+            <End Role="Clientes" EntitySet="Clientes" />
+            <End Role="Reservas" EntitySet="Reservas" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Devolucio__id_re__4BAC3F29" Association="Self.FK__Devolucio__id_re__4BAC3F29">
+            <End Role="Rentas" EntitySet="Rentas" />
+            <End Role="Devoluciones" EntitySet="Devoluciones" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Rentas__id_reser__48CFD27E" Association="Self.FK__Rentas__id_reser__48CFD27E">
+            <End Role="Reservas" EntitySet="Reservas" />
+            <End Role="Rentas" EntitySet="Rentas" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Reservas__id_veh__45F365D3" Association="Self.FK__Reservas__id_veh__45F365D3">
+            <End Role="Vehiculos" EntitySet="Vehiculos" />
+            <End Role="Reservas" EntitySet="Reservas" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Vehiculos__id_se__3E52440B" Association="Self.FK__Vehiculos__id_se__3E52440B">
+            <End Role="Sedes" EntitySet="Sedes" />
+            <End Role="Vehiculos" EntitySet="Vehiculos" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Vehiculos__id_ti__3D5E1FD2" Association="Self.FK__Vehiculos__id_ti__3D5E1FD2">
+            <End Role="TiposVehiculos" EntitySet="TiposVehiculos" />
+            <End Role="Vehiculos" EntitySet="Vehiculos" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Ventas__id_vehic__4E88ABD4" Association="Self.FK__Ventas__id_vehic__4E88ABD4">
+            <End Role="Vehiculos" EntitySet="Vehiculos" />
+            <End Role="Ventas" EntitySet="Ventas" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Ventas__id_vehic__4F7CD00D" Association="Self.FK__Ventas__id_vehic__4F7CD00D">
+            <End Role="Vehiculos" EntitySet="Vehiculos" />
+            <End Role="Ventas" EntitySet="Ventas" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="AlquilerDBModelStoreContainer" CdmEntityContainer="AlquilerDBEntities">
+          <EntitySetMapping Name="Clientes">
+            <EntityTypeMapping TypeName="AlquilerDBModel.Cliente">
+              <MappingFragment StoreEntitySet="Clientes">
+                <ScalarProperty Name="id_cliente" ColumnName="id_cliente" />
+                <ScalarProperty Name="nombre" ColumnName="nombre" />
+                <ScalarProperty Name="nacionalidad" ColumnName="nacionalidad" />
+                <ScalarProperty Name="identificacion" ColumnName="identificacion" />
+                <ScalarProperty Name="tipo_cliente" ColumnName="tipo_cliente" />
+                <ScalarProperty Name="telefono" ColumnName="telefono" />
+                <ScalarProperty Name="email" ColumnName="email" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Devoluciones">
+            <EntityTypeMapping TypeName="AlquilerDBModel.Devolucione">
+              <MappingFragment StoreEntitySet="Devoluciones">
+                <ScalarProperty Name="id_devolucion" ColumnName="id_devolucion" />
+                <ScalarProperty Name="id_renta" ColumnName="id_renta" />
+                <ScalarProperty Name="fecha_devolucion" ColumnName="fecha_devolucion" />
+                <ScalarProperty Name="kilometraje_final" ColumnName="kilometraje_final" />
+                <ScalarProperty Name="observaciones" ColumnName="observaciones" />
+                <ScalarProperty Name="costo_final" ColumnName="costo_final" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Rentas">
+            <EntityTypeMapping TypeName="AlquilerDBModel.Renta">
+              <MappingFragment StoreEntitySet="Rentas">
+                <ScalarProperty Name="id_renta" ColumnName="id_renta" />
+                <ScalarProperty Name="id_reserva" ColumnName="id_reserva" />
+                <ScalarProperty Name="fecha_inicio" ColumnName="fecha_inicio" />
+                <ScalarProperty Name="fecha_fin_estimada" ColumnName="fecha_fin_estimada" />
+                <ScalarProperty Name="costo_total_est" ColumnName="costo_total_est" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Reservas">
+            <EntityTypeMapping TypeName="AlquilerDBModel.Reserva">
+              <MappingFragment StoreEntitySet="Reservas">
+                <ScalarProperty Name="id_reserva" ColumnName="id_reserva" />
+                <ScalarProperty Name="id_cliente" ColumnName="id_cliente" />
+                <ScalarProperty Name="id_vehiculo" ColumnName="id_vehiculo" />
+                <ScalarProperty Name="fecha_reserva" ColumnName="fecha_reserva" />
+                <ScalarProperty Name="fecha_inicio" ColumnName="fecha_inicio" />
+                <ScalarProperty Name="fecha_fin" ColumnName="fecha_fin" />
+                <ScalarProperty Name="estado" ColumnName="estado" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Sedes">
+            <EntityTypeMapping TypeName="AlquilerDBModel.Sede">
+              <MappingFragment StoreEntitySet="Sedes">
+                <ScalarProperty Name="id_sede" ColumnName="id_sede" />
+                <ScalarProperty Name="nombre" ColumnName="nombre" />
+                <ScalarProperty Name="direccion" ColumnName="direccion" />
+                <ScalarProperty Name="ciudad" ColumnName="ciudad" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="TiposVehiculos">
+            <EntityTypeMapping TypeName="AlquilerDBModel.TiposVehiculo">
+              <MappingFragment StoreEntitySet="TiposVehiculos">
+                <ScalarProperty Name="id_tipo" ColumnName="id_tipo" />
+                <ScalarProperty Name="nombre" ColumnName="nombre" />
+                <ScalarProperty Name="descripcion" ColumnName="descripcion" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Vehiculos">
+            <EntityTypeMapping TypeName="AlquilerDBModel.Vehiculo">
+              <MappingFragment StoreEntitySet="Vehiculos">
+                <ScalarProperty Name="id_vehiculo" ColumnName="id_vehiculo" />
+                <ScalarProperty Name="placa" ColumnName="placa" />
+                <ScalarProperty Name="marca" ColumnName="marca" />
+                <ScalarProperty Name="modelo" ColumnName="modelo" />
+                <ScalarProperty Name="año" ColumnName="año" />
+                <ScalarProperty Name="id_tipo" ColumnName="id_tipo" />
+                <ScalarProperty Name="id_sede" ColumnName="id_sede" />
+                <ScalarProperty Name="estado" ColumnName="estado" />
+                <ScalarProperty Name="fecha_compra" ColumnName="fecha_compra" />
+                <ScalarProperty Name="precio_compra" ColumnName="precio_compra" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Ventas">
+            <EntityTypeMapping TypeName="AlquilerDBModel.Venta">
+              <MappingFragment StoreEntitySet="Ventas">
+                <ScalarProperty Name="id_venta" ColumnName="id_venta" />
+                <ScalarProperty Name="id_vehiculo" ColumnName="id_vehiculo" />
+                <ScalarProperty Name="fecha_venta" ColumnName="fecha_venta" />
+                <ScalarProperty Name="precio_venta" ColumnName="precio_venta" />
+                <ScalarProperty Name="comprador_nombre" ColumnName="comprador_nombre" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="true" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

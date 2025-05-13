@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="018c078cf1d14dadb87902ce11740f43" Name="Diagram1">
+        <EntityTypeShape EntityType="AlquilerDBModel.Cliente" Width="1.5" PointX="3" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="AlquilerDBModel.Devolucione" Width="1.5" PointX="9.75" PointY="4.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="AlquilerDBModel.Renta" Width="1.5" PointX="7.5" PointY="4.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="AlquilerDBModel.Reserva" Width="1.5" PointX="5.25" PointY="4.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="AlquilerDBModel.Sede" Width="1.5" PointX="0.75" PointY="5" IsExpanded="true" />
+        <EntityTypeShape EntityType="AlquilerDBModel.TiposVehiculo" Width="1.5" PointX="0.75" PointY="2.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="AlquilerDBModel.Vehiculo" Width="1.5" PointX="3" PointY="4.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="AlquilerDBModel.Venta" Width="1.5" PointX="5.25" PointY="8.5" IsExpanded="true" />
+        <AssociationConnector Association="AlquilerDBModel.FK__Reservas__id_cli__44FF419A" ManuallyRouted="false" />
+        <AssociationConnector Association="AlquilerDBModel.FK__Devolucio__id_re__4BAC3F29" ManuallyRouted="false" />
+        <AssociationConnector Association="AlquilerDBModel.FK__Rentas__id_reser__48CFD27E" ManuallyRouted="false" />
+        <AssociationConnector Association="AlquilerDBModel.FK__Reservas__id_veh__45F365D3" ManuallyRouted="false" />
+        <AssociationConnector Association="AlquilerDBModel.FK__Vehiculos__id_se__3E52440B" ManuallyRouted="false" />
+        <AssociationConnector Association="AlquilerDBModel.FK__Vehiculos__id_ti__3D5E1FD2" ManuallyRouted="false" />
+        <AssociationConnector Association="AlquilerDBModel.FK__Ventas__id_vehic__4E88ABD4" ManuallyRouted="false" />
+        <AssociationConnector Association="AlquilerDBModel.FK__Ventas__id_vehic__4F7CD00D" ManuallyRouted="false" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>
