@@ -1,12 +1,105 @@
 {
   "Version": 1,
   "WorkspaceRootPath": "D:\\Programming\\AlquilerVehiculo\\Backend\\",
-  "Documents": [],
+  "Documents": [
+    {
+      "AbsoluteMoniker": "D:0:0:{B5ED7947-1931-449D-AC3A-ACCB367AFBF6}|Backend\\Backend.csproj|d:\\programming\\alquilervehiculo\\backend\\backend\\controllers\\tipovehiculocontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{B5ED7947-1931-449D-AC3A-ACCB367AFBF6}|Backend\\Backend.csproj|solutionrelative:backend\\controllers\\tipovehiculocontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{B5ED7947-1931-449D-AC3A-ACCB367AFBF6}|Backend\\Backend.csproj|d:\\programming\\alquilervehiculo\\backend\\backend\\clases\\cstipovehiculo.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{B5ED7947-1931-449D-AC3A-ACCB367AFBF6}|Backend\\Backend.csproj|solutionrelative:backend\\clases\\cstipovehiculo.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{B5ED7947-1931-449D-AC3A-ACCB367AFBF6}|Backend\\Backend.csproj|d:\\programming\\alquilervehiculo\\backend\\backend\\controllers\\vehiculocontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{B5ED7947-1931-449D-AC3A-ACCB367AFBF6}|Backend\\Backend.csproj|solutionrelative:backend\\controllers\\vehiculocontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{B5ED7947-1931-449D-AC3A-ACCB367AFBF6}|Backend\\Backend.csproj|d:\\programming\\alquilervehiculo\\backend\\backend\\clases\\csvehiculo.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{B5ED7947-1931-449D-AC3A-ACCB367AFBF6}|Backend\\Backend.csproj|solutionrelative:backend\\clases\\csvehiculo.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{B5ED7947-1931-449D-AC3A-ACCB367AFBF6}|Backend\\Backend.csproj|d:\\programming\\alquilervehiculo\\backend\\backend\\controllers\\sedecontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{B5ED7947-1931-449D-AC3A-ACCB367AFBF6}|Backend\\Backend.csproj|solutionrelative:backend\\controllers\\sedecontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    }
+  ],
   "DocumentGroupContainers": [
     {
       "Orientation": 0,
       "VerticalTabListWidth": 256,
-      "DocumentGroups": []
+      "DocumentGroups": [
+        {
+          "DockedWidth": 200,
+          "SelectedChildIndex": 0,
+          "Children": [
+            {
+              "$type": "Document",
+              "DocumentIndex": 0,
+              "Title": "TipoVehiculoController.cs",
+              "DocumentMoniker": "D:\\Programming\\AlquilerVehiculo\\Backend\\Backend\\Controllers\\TipoVehiculoController.cs",
+              "RelativeDocumentMoniker": "Backend\\Controllers\\TipoVehiculoController.cs",
+              "ToolTip": "D:\\Programming\\AlquilerVehiculo\\Backend\\Backend\\Controllers\\TipoVehiculoController.cs",
+              "RelativeToolTip": "Backend\\Controllers\\TipoVehiculoController.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAABIAAAA2AAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-05-13T23:36:25.514Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 1,
+              "Title": "csTipoVehiculo.cs",
+              "DocumentMoniker": "D:\\Programming\\AlquilerVehiculo\\Backend\\Backend\\Clases\\csTipoVehiculo.cs",
+              "RelativeDocumentMoniker": "Backend\\Clases\\csTipoVehiculo.cs",
+              "ToolTip": "D:\\Programming\\AlquilerVehiculo\\Backend\\Backend\\Clases\\csTipoVehiculo.cs",
+              "RelativeToolTip": "Backend\\Clases\\csTipoVehiculo.cs",
+              "ViewState": "AgIAADcAAAAAAAAAAAAmwEsAAAABAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-05-13T23:34:30.054Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 2,
+              "Title": "VehiculoController.cs",
+              "DocumentMoniker": "D:\\Programming\\AlquilerVehiculo\\Backend\\Backend\\Controllers\\VehiculoController.cs",
+              "RelativeDocumentMoniker": "Backend\\Controllers\\VehiculoController.cs",
+              "ToolTip": "D:\\Programming\\AlquilerVehiculo\\Backend\\Backend\\Controllers\\VehiculoController.cs",
+              "RelativeToolTip": "Backend\\Controllers\\VehiculoController.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAsAAAAEAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-05-13T23:31:43.987Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 3,
+              "Title": "csVehiculo.cs",
+              "DocumentMoniker": "D:\\Programming\\AlquilerVehiculo\\Backend\\Backend\\Clases\\csVehiculo.cs",
+              "RelativeDocumentMoniker": "Backend\\Clases\\csVehiculo.cs",
+              "ToolTip": "D:\\Programming\\AlquilerVehiculo\\Backend\\Backend\\Clases\\csVehiculo.cs",
+              "RelativeToolTip": "Backend\\Clases\\csVehiculo.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAABEAAAAPAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-05-13T23:30:33.149Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 4,
+              "Title": "SedeController.cs",
+              "DocumentMoniker": "D:\\Programming\\AlquilerVehiculo\\Backend\\Backend\\Controllers\\SedeController.cs",
+              "RelativeDocumentMoniker": "Backend\\Controllers\\SedeController.cs",
+              "ToolTip": "D:\\Programming\\AlquilerVehiculo\\Backend\\Backend\\Controllers\\SedeController.cs",
+              "RelativeToolTip": "Backend\\Controllers\\SedeController.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAkAAAAEAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-05-13T00:18:19.634Z",
+              "EditorCaption": ""
+            }
+          ]
+        }
+      ]
     }
   ]
 }

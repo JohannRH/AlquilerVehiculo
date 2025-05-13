@@ -1,0 +1,244 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="AlquilerDBModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+  <EntityType Name="Cliente">
+    <Key>
+      <PropertyRef Name="id_cliente" />
+    </Key>
+    <Property Name="id_cliente" Type="Int32" Nullable="false" />
+    <Property Name="nombre" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+    <Property Name="nacionalidad" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="identificacion" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="tipo_cliente" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+    <Property Name="telefono" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+    <Property Name="email" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+    <NavigationProperty Name="Reservas" Relationship="Self.FK__Reservas__id_cli__44FF419A" FromRole="Clientes" ToRole="Reservas" />
+  </EntityType>
+  <EntityType Name="Devolucione">
+    <Key>
+      <PropertyRef Name="id_devolucion" />
+    </Key>
+    <Property Name="id_devolucion" Type="Int32" Nullable="false" />
+    <Property Name="id_renta" Type="Int32" />
+    <Property Name="fecha_devolucion" Type="DateTime" Precision="0" />
+    <Property Name="kilometraje_final" Type="Int32" />
+    <Property Name="observaciones" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+    <Property Name="costo_final" Type="Decimal" Precision="10" Scale="2" />
+    <NavigationProperty Name="Renta" Relationship="Self.FK__Devolucio__id_re__4BAC3F29" FromRole="Devoluciones" ToRole="Rentas" />
+  </EntityType>
+  <EntityType Name="Renta">
+    <Key>
+      <PropertyRef Name="id_renta" />
+    </Key>
+    <Property Name="id_renta" Type="Int32" Nullable="false" />
+    <Property Name="id_reserva" Type="Int32" />
+    <Property Name="fecha_inicio" Type="DateTime" Precision="0" />
+    <Property Name="fecha_fin_estimada" Type="DateTime" Precision="0" />
+    <Property Name="costo_total_est" Type="Decimal" Precision="10" Scale="2" />
+    <NavigationProperty Name="Devoluciones" Relationship="Self.FK__Devolucio__id_re__4BAC3F29" FromRole="Rentas" ToRole="Devoluciones" />
+    <NavigationProperty Name="Reserva" Relationship="Self.FK__Rentas__id_reser__48CFD27E" FromRole="Rentas" ToRole="Reservas" />
+  </EntityType>
+  <EntityType Name="Reserva">
+    <Key>
+      <PropertyRef Name="id_reserva" />
+    </Key>
+    <Property Name="id_reserva" Type="Int32" Nullable="false" />
+    <Property Name="id_cliente" Type="Int32" />
+    <Property Name="id_vehiculo" Type="Int32" />
+    <Property Name="fecha_reserva" Type="DateTime" Precision="0" />
+    <Property Name="fecha_inicio" Type="DateTime" Precision="0" />
+    <Property Name="fecha_fin" Type="DateTime" Precision="0" />
+    <Property Name="estado" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+    <NavigationProperty Name="Cliente" Relationship="Self.FK__Reservas__id_cli__44FF419A" FromRole="Reservas" ToRole="Clientes" />
+    <NavigationProperty Name="Rentas" Relationship="Self.FK__Rentas__id_reser__48CFD27E" FromRole="Reservas" ToRole="Rentas" />
+    <NavigationProperty Name="Vehiculo" Relationship="Self.FK__Reservas__id_veh__45F365D3" FromRole="Reservas" ToRole="Vehiculos" />
+  </EntityType>
+  <EntityType Name="Sede">
+    <Key>
+      <PropertyRef Name="id_sede" />
+    </Key>
+    <Property Name="id_sede" Type="Int32" Nullable="false" />
+    <Property Name="nombre" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+    <Property Name="direccion" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
+    <Property Name="ciudad" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+    <NavigationProperty Name="Vehiculos" Relationship="Self.FK__Vehiculos__id_se__3E52440B" FromRole="Sedes" ToRole="Vehiculos" />
+  </EntityType>
+  <EntityType Name="TiposVehiculo">
+    <Key>
+      <PropertyRef Name="id_tipo" />
+    </Key>
+    <Property Name="id_tipo" Type="Int32" Nullable="false" />
+    <Property Name="nombre" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="descripcion" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+    <NavigationProperty Name="Vehiculos" Relationship="Self.FK__Vehiculos__id_ti__3D5E1FD2" FromRole="TiposVehiculos" ToRole="Vehiculos" />
+  </EntityType>
+  <EntityType Name="Vehiculo">
+    <Key>
+      <PropertyRef Name="id_vehiculo" />
+    </Key>
+    <Property Name="id_vehiculo" Type="Int32" Nullable="false" />
+    <Property Name="placa" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+    <Property Name="marca" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="modelo" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="año" Type="Int32" />
+    <Property Name="id_tipo" Type="Int32" />
+    <Property Name="id_sede" Type="Int32" />
+    <Property Name="estado" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+    <Property Name="fecha_compra" Type="DateTime" Precision="0" />
+    <Property Name="precio_compra" Type="Decimal" Precision="10" Scale="2" />
+    <NavigationProperty Name="Reservas" Relationship="Self.FK__Reservas__id_veh__45F365D3" FromRole="Vehiculos" ToRole="Reservas" />
+    <NavigationProperty Name="Sede" Relationship="Self.FK__Vehiculos__id_se__3E52440B" FromRole="Vehiculos" ToRole="Sedes" />
+    <NavigationProperty Name="TiposVehiculo" Relationship="Self.FK__Vehiculos__id_ti__3D5E1FD2" FromRole="Vehiculos" ToRole="TiposVehiculos" />
+    <NavigationProperty Name="Ventas" Relationship="Self.FK__Ventas__id_vehic__4E88ABD4" FromRole="Vehiculos" ToRole="Ventas" />
+    <NavigationProperty Name="Ventas1" Relationship="Self.FK__Ventas__id_vehic__4F7CD00D" FromRole="Vehiculos" ToRole="Ventas" />
+  </EntityType>
+  <EntityType Name="Venta">
+    <Key>
+      <PropertyRef Name="id_venta" />
+    </Key>
+    <Property Name="id_venta" Type="Int32" Nullable="false" />
+    <Property Name="id_vehiculo" Type="Int32" />
+    <Property Name="fecha_venta" Type="DateTime" Precision="0" />
+    <Property Name="precio_venta" Type="Decimal" Precision="10" Scale="2" />
+    <Property Name="comprador_nombre" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+    <NavigationProperty Name="Vehiculo" Relationship="Self.FK__Ventas__id_vehic__4E88ABD4" FromRole="Ventas" ToRole="Vehiculos" />
+    <NavigationProperty Name="Vehiculo1" Relationship="Self.FK__Ventas__id_vehic__4F7CD00D" FromRole="Ventas" ToRole="Vehiculos" />
+  </EntityType>
+  <Association Name="FK__Reservas__id_cli__44FF419A">
+    <End Role="Clientes" Type="Self.Cliente" Multiplicity="0..1" />
+    <End Role="Reservas" Type="Self.Reserva" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Clientes">
+        <PropertyRef Name="id_cliente" />
+      </Principal>
+      <Dependent Role="Reservas">
+        <PropertyRef Name="id_cliente" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__Devolucio__id_re__4BAC3F29">
+    <End Role="Rentas" Type="Self.Renta" Multiplicity="0..1" />
+    <End Role="Devoluciones" Type="Self.Devolucione" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Rentas">
+        <PropertyRef Name="id_renta" />
+      </Principal>
+      <Dependent Role="Devoluciones">
+        <PropertyRef Name="id_renta" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__Rentas__id_reser__48CFD27E">
+    <End Role="Reservas" Type="Self.Reserva" Multiplicity="0..1" />
+    <End Role="Rentas" Type="Self.Renta" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Reservas">
+        <PropertyRef Name="id_reserva" />
+      </Principal>
+      <Dependent Role="Rentas">
+        <PropertyRef Name="id_reserva" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__Reservas__id_veh__45F365D3">
+    <End Role="Vehiculos" Type="Self.Vehiculo" Multiplicity="0..1" />
+    <End Role="Reservas" Type="Self.Reserva" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Vehiculos">
+        <PropertyRef Name="id_vehiculo" />
+      </Principal>
+      <Dependent Role="Reservas">
+        <PropertyRef Name="id_vehiculo" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__Vehiculos__id_se__3E52440B">
+    <End Role="Sedes" Type="Self.Sede" Multiplicity="0..1" />
+    <End Role="Vehiculos" Type="Self.Vehiculo" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Sedes">
+        <PropertyRef Name="id_sede" />
+      </Principal>
+      <Dependent Role="Vehiculos">
+        <PropertyRef Name="id_sede" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__Vehiculos__id_ti__3D5E1FD2">
+    <End Role="TiposVehiculos" Type="Self.TiposVehiculo" Multiplicity="0..1" />
+    <End Role="Vehiculos" Type="Self.Vehiculo" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="TiposVehiculos">
+        <PropertyRef Name="id_tipo" />
+      </Principal>
+      <Dependent Role="Vehiculos">
+        <PropertyRef Name="id_tipo" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__Ventas__id_vehic__4E88ABD4">
+    <End Role="Vehiculos" Type="Self.Vehiculo" Multiplicity="0..1" />
+    <End Role="Ventas" Type="Self.Venta" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Vehiculos">
+        <PropertyRef Name="id_vehiculo" />
+      </Principal>
+      <Dependent Role="Ventas">
+        <PropertyRef Name="id_vehiculo" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__Ventas__id_vehic__4F7CD00D">
+    <End Role="Vehiculos" Type="Self.Vehiculo" Multiplicity="0..1" />
+    <End Role="Ventas" Type="Self.Venta" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Vehiculos">
+        <PropertyRef Name="id_vehiculo" />
+      </Principal>
+      <Dependent Role="Ventas">
+        <PropertyRef Name="id_vehiculo" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityContainer Name="AlquilerDBEntities" annotation:LazyLoadingEnabled="true">
+    <EntitySet Name="Clientes" EntityType="Self.Cliente" />
+    <EntitySet Name="Devoluciones" EntityType="Self.Devolucione" />
+    <EntitySet Name="Rentas" EntityType="Self.Renta" />
+    <EntitySet Name="Reservas" EntityType="Self.Reserva" />
+    <EntitySet Name="Sedes" EntityType="Self.Sede" />
+    <EntitySet Name="TiposVehiculos" EntityType="Self.TiposVehiculo" />
+    <EntitySet Name="Vehiculos" EntityType="Self.Vehiculo" />
+    <EntitySet Name="Ventas" EntityType="Self.Venta" />
+    <AssociationSet Name="FK__Reservas__id_cli__44FF419A" Association="Self.FK__Reservas__id_cli__44FF419A">
+      <End Role="Clientes" EntitySet="Clientes" />
+      <End Role="Reservas" EntitySet="Reservas" />
+    </AssociationSet>
+    <AssociationSet Name="FK__Devolucio__id_re__4BAC3F29" Association="Self.FK__Devolucio__id_re__4BAC3F29">
+      <End Role="Rentas" EntitySet="Rentas" />
+      <End Role="Devoluciones" EntitySet="Devoluciones" />
+    </AssociationSet>
+    <AssociationSet Name="FK__Rentas__id_reser__48CFD27E" Association="Self.FK__Rentas__id_reser__48CFD27E">
+      <End Role="Reservas" EntitySet="Reservas" />
+      <End Role="Rentas" EntitySet="Rentas" />
+    </AssociationSet>
+    <AssociationSet Name="FK__Reservas__id_veh__45F365D3" Association="Self.FK__Reservas__id_veh__45F365D3">
+      <End Role="Vehiculos" EntitySet="Vehiculos" />
+      <End Role="Reservas" EntitySet="Reservas" />
+    </AssociationSet>
+    <AssociationSet Name="FK__Vehiculos__id_se__3E52440B" Association="Self.FK__Vehiculos__id_se__3E52440B">
+      <End Role="Sedes" EntitySet="Sedes" />
+      <End Role="Vehiculos" EntitySet="Vehiculos" />
+    </AssociationSet>
+    <AssociationSet Name="FK__Vehiculos__id_ti__3D5E1FD2" Association="Self.FK__Vehiculos__id_ti__3D5E1FD2">
+      <End Role="TiposVehiculos" EntitySet="TiposVehiculos" />
+      <End Role="Vehiculos" EntitySet="Vehiculos" />
+    </AssociationSet>
+    <AssociationSet Name="FK__Ventas__id_vehic__4E88ABD4" Association="Self.FK__Ventas__id_vehic__4E88ABD4">
+      <End Role="Vehiculos" EntitySet="Vehiculos" />
+      <End Role="Ventas" EntitySet="Ventas" />
+    </AssociationSet>
+    <AssociationSet Name="FK__Ventas__id_vehic__4F7CD00D" Association="Self.FK__Ventas__id_vehic__4F7CD00D">
+      <End Role="Vehiculos" EntitySet="Vehiculos" />
+      <End Role="Ventas" EntitySet="Ventas" />
+    </AssociationSet>
+  </EntityContainer>
+</Schema>
